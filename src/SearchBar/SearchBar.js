@@ -1,15 +1,30 @@
+import React, { useState } from 'react';
 
 function SearchBar({
-  // j'utilise ces deux props comme function pour remonter des datas vers App
-  handleInputRequest,
-  sendRequest,
-}) {
+  onSubmit,
+})
+{
+   // i am using this hook to save the value of the input;
+   const [searchValue, setSearchValue] = useState('');
+
+   //thanks onChange, the value of the input is change in fonction of what the user is writting
+   const handleSearchChange = (event) => {
+    const { value } = event.target;
+    setSearchValue(value);
+  };
+
+  //the value of the input is  sent to the parent's component with onSubmit()
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    onSubmit(searchValue);
+  }
+
+
   return (
     <div id="container-seaarchBar">
-        <form action="">
-            <input id="searchBar" type="text" placeholder="react" onChange={handleInputRequest} />
-            <input type="submit" value="Search" onClick={sendRequest}/>
-            {/* <button type="button" id="searchButton" onClick={sendRequest}> </button> */}
+        <form action="" onSubmit={handleSubmit}>
+            <input id="searchBar" type="text" placeholder="react" onChange={handleSearchChange} value={searchValue}/>
+            <input type="submit" value="Search"/>
         </form>
     </div>
   );

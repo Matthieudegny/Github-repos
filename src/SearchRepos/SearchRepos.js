@@ -3,57 +3,100 @@ import React, { useState, useEffect } from 'react';
 import SearchBar from '../SearchBar/SearchBar';
 import Message from '../Message/Message';
 import CardList from '../CardList/CardList';
-// import data from '../../data/repos';
 
-// Import request axios
+// Import request 
 import { requestsGithub } from '../requests/request';
 
 function SearchRepos() {
-  // J'utilise ces deux hooks pour stocker les infos de la requête soit datasRequest qui stocke tous les donnés de la requête (data.items)
-  // et resultNumberRequest qui stocke le numbre de requêtes trouvées (data.total_count)
-  const [datasRequest, setDatasRequest] = useState([]);
-  const [resultNumberRequest, setResulNumberRequest] = useState(0);
-  // J'utilise ce hook pour stocker et utiliser la valeur de l'input avec la const saveInputValue
-  const [inputValue, setInputValue] = useState('');
 
-  const saveInputValue = (event) => {
-    const { value } = event.target;
-    setInputValue(value);
+  const [repos, setRepos] = useState([]);
+  //resultNumberRequest -> recieve the numbers of request's results
+  const [total, setTotal] = useState(0);  
+  //search -> result of 
+  const [search, setSearch] = useState('');
+
+  /*A FAIRE */
+  //message a paramétrer en focntion de pls scénarios
+  const [message, setMessage] = useState();
+  // const [message, setMessage] = useState(initialMessage); // CONFIGURER UN MESSAGE INITIAL
+  //à utiliser en fonction de materialize UI pour dynamiser 
+  const [hasError, setHasError] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+
+  //reset only if the searchValue is validated
+  const reset = () => {
+    setRepos([]);
+    setTotal(0);
+    setHasError(false);
   };
 
-  const handleLoadData = async () => {
-    try {
-      const dataGit = await requestsGithub(inputValue);
-      const datas = dataGit.data.items;
-      const numberOfReserachs = dataGit.data.total_count;
-      
-      setResulNumberRequest(numberOfReserachs);
-      setDatasRequest(datas);
-      
+  const fetchResults = async () => {
+    /*A FAIRE*/
+    // paramétrer message style
+    // setMessage(loadingMessage); // CONGIGURER UN MESSAGE D'ATTENTE
+    setHasError(false); 
+    //paramètre card style
+    setIsLoading(true);
+    
+      try{
+        //search (hook) is sent to my request as parameter
+        const dataGit = await requestsGithub(search);
+        //datas required
+        const datas = dataGit.data.items;
+        //hooks modifications
+        setRepos(datas)
+        const { total_count: totalCount } = dataGit;
+        setTotal(totalCount);// on met le resultat dans le state
+        //setMessage(getMessage(totalCount));// CONFIGURER MESSAGE AVEC REULSTAT COUNT
+      }
+      catch(err) {
+        /*A FAIRE*/
+          // on a eu une erreur sur la requete
+        // setMessage(getErrorMessage({ // CONFIGURER MESSAGE AVEC RETOUR ERREUR
+        // message: err.response.data.message, //CONSERVER ?
+        // codeError: getErrorCode(err.response),
+        // }));
+        setHasError(true); // CONFIGURATION STYLE MESSAGE ERREUR -> ROUGE
+      }
+      finally {
+        /*A FAIRE ANIMATION LOADINF CARD/REPO RESULT*/
+        setIsLoading(false);
+      }
+
+  };
+
+  //searchValue in now in my SearchRepos Component
+  const handleSearchSubmit = async (searchValue) => {
+      //searchValue is cleaned
+      const parsedSearchValue = searchValue.trim();
+      if (parsedSearchValue.length < 3) {
+        setHasError(true); // A FAIRE
+        // setMessage(getErrorMessage({//CONFIGURER MESSAGE AVEC RETOUR ERREUR
+        //   codeError: 'searchValueTooSmall',
+        // }));
+        return;
+      }
+
+      reset();
+      //the searchValue is validated and saved at the search hook
+      setSearch(parsedSearchValue);
+  };
+
+  //if the state of search is modified and if different from null -> fetchResults
+  useEffect(() => {
+    if (search !== '') {
+      fetchResults();
     }
-    catch (err) {
-      console.error(err);
-    }
-  };
-
-  const submitInitiate = (event) => {
-    event.preventDefault();
-    console.log("ok")
-    handleLoadData();
-  };
+  }, [search]);
 
   return (
     <div className="app">
       <SearchBar
-      // SearchBar comprend deux fonctions qui me permettent de remonter de l'info depuis les composants enfants vers App(valeur input + listener button)
-      // manipulation de l'input
-        handleInputRequest={saveInputValue}
-      // manipulation du button
-        sendRequest={submitInitiate}
+        onSubmit={handleSearchSubmit}
       />
       {/* uniquement de l'hydratation de composant à partir d'ici, mes deux premiers hooks distribuent leurs data sur ces deux composants */}
-      <Message result={resultNumberRequest} />
-      <CardList datas={datasRequest} />
+      <Message result={total} />
+      <CardList datas={repos} />
     </div>
   );
 }
