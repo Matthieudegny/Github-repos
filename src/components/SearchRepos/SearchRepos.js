@@ -1,11 +1,15 @@
 // == Import
 import React, { useState, useEffect } from 'react';
+import {
+  getMessage, getErrorMessage, initialMessage, loadingMessage, getErrorCode,
+} from '../../utils/messages';
 import SearchBar from '../SearchBar/SearchBar';
 import Message from '../Message/Message';
 import CardList from '../CardList/CardList';
+import MoreResults from '../MoreResults/MoreResults';
 
 // Import request 
-import { requestsGithub } from '../requests/request';
+import { requestsGithub } from '../../requests/request';
 
 function SearchRepos() {
 
@@ -14,11 +18,11 @@ function SearchRepos() {
   const [total, setTotal] = useState(0);  
   //search -> result of 
   const [search, setSearch] = useState('');
+  const [page, setPage] = useState(1);
 
   /*A FAIRE */
   //message a paramétrer en focntion de pls scénarios
-  const [message, setMessage] = useState();
-  // const [message, setMessage] = useState(initialMessage); // CONFIGURER UN MESSAGE INITIAL
+  const [message, setMessage] = useState(initialMessage);
   //à utiliser en fonction de materialize UI pour dynamiser 
   const [hasError, setHasError] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
@@ -28,34 +32,36 @@ function SearchRepos() {
     setRepos([]);
     setTotal(0);
     setHasError(false);
+    setPage(1);
   };
 
   const fetchResults = async () => {
     /*A FAIRE*/
     // paramétrer message style
-    // setMessage(loadingMessage); // CONGIGURER UN MESSAGE D'ATTENTE
+    setMessage(loadingMessage);
     setHasError(false); 
     //paramètre card style
     setIsLoading(true);
     
       try{
         //search (hook) is sent to my request as parameter
-        const dataGit = await requestsGithub(search);
+        const dataGit = await requestsGithub({search,page});
         //datas required
         const datas = dataGit.data.items;
+        const totalCount = dataGit.data.total_count;
         //hooks modifications
         setRepos(datas)
-        const { total_count: totalCount } = dataGit;
+        console.log(dataGit)
         setTotal(totalCount);// on met le resultat dans le state
-        //setMessage(getMessage(totalCount));// CONFIGURER MESSAGE AVEC REULSTAT COUNT
+        setMessage(getMessage(totalCount));// CONFIGURER MESSAGE AVEC REULSTAT COUNT
       }
       catch(err) {
         /*A FAIRE*/
           // on a eu une erreur sur la requete
-        // setMessage(getErrorMessage({ // CONFIGURER MESSAGE AVEC RETOUR ERREUR
-        // message: err.response.data.message, //CONSERVER ?
-        // codeError: getErrorCode(err.response),
-        // }));
+        setMessage(getErrorMessage({ // CONFIGURER MESSAGE AVEC RETOUR ERREUR
+        message: err.response.data.message, //CONSERVER ?
+        codeError: getErrorCode(err.response),
+        }));
         setHasError(true); // CONFIGURATION STYLE MESSAGE ERREUR -> ROUGE
       }
       finally {
@@ -71,9 +77,9 @@ function SearchRepos() {
       const parsedSearchValue = searchValue.trim();
       if (parsedSearchValue.length < 3) {
         setHasError(true); // A FAIRE
-        // setMessage(getErrorMessage({//CONFIGURER MESSAGE AVEC RETOUR ERREUR
-        //   codeError: 'searchValueTooSmall',
-        // }));
+        setMessage(getErrorMessage({//CONFIGURER MESSAGE AVEC RETOUR ERREUR
+          codeError: 'searchValueTooSmall',
+        }));
         return;
       }
 
@@ -83,11 +89,12 @@ function SearchRepos() {
   };
 
   //if the state of search is modified and if different from null -> fetchResults
+  /*A FAIRE NETOYAGE*/
   useEffect(() => {
     if (search !== '') {
       fetchResults();
     }
-  }, [search]);
+  }, [search,page]);
 
   return (
     <div className="app">
@@ -95,8 +102,18 @@ function SearchRepos() {
         onSubmit={handleSearchSubmit}
       />
       {/* uniquement de l'hydratation de composant à partir d'ici, mes deux premiers hooks distribuent leurs data sur ces deux composants */}
-      <Message result={total} />
-      <CardList datas={repos} />
+      <Message result={message} />
+      <CardList datas={repos} /> {/*A FAIRE LE LIEN AVEC MORERESULT VOIR CORRECTION*/}
+
+      { total !== repos.length && (
+         <MoreResults
+         fetchMore={() => {
+           setPage(page+1)
+         }}
+         />
+      ) }
+
+
     </div>
   );
 }
