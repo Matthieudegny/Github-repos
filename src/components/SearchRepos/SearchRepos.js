@@ -1,7 +1,7 @@
 // == Import
 import React, { useState, useEffect } from 'react';
 import {
-  getMessage, getErrorMessage, initialMessage, loadingMessage, getErrorCode,
+  getMessage, getErrorMessageLength,getErrorMessageFetch, initialMessage, loadingMessage, getErrorCode,
 } from '../../utils/messages';
 import SearchBar from '../SearchBar/SearchBar';
 import Message from '../Message/Message';
@@ -19,12 +19,15 @@ function SearchRepos() {
   //search -> result of 
   const [search, setSearch] = useState('');
   const [page, setPage] = useState(1);
+   //message a paramétrer en focntion de pls scénarios
+   const [message, setMessage] = useState(initialMessage);
 
   /*A FAIRE */
-  //message a paramétrer en focntion de pls scénarios
-  const [message, setMessage] = useState(initialMessage);
   //à utiliser en fonction de materialize UI pour dynamiser 
+  //pour dynamiser le message enc as d'erreur ex semantic = negative={isError} fichier Message.js correction
   const [hasError, setHasError] = useState(false);
+  //permet de dynamiser le repoResult avec un effet de skeleton (attente sur les cartes)
+  // mise en condition du return ds card.group grace à semantic
   const [isLoading, setIsLoading] = useState(false);
 
   //reset only if the searchValue is validated
@@ -36,32 +39,34 @@ function SearchRepos() {
   };
 
   const fetchResults = async () => {
-    /*A FAIRE*/
     // paramétrer message style
     setMessage(loadingMessage);
+    /*A FAIRE*/
     setHasError(false); 
     //paramètre card style
     setIsLoading(true);
     
       try{
-        //search (hook) is sent to my request as parameter
         const dataGit = await requestsGithub({search,page});
         //datas required
         const datas = dataGit.data.items;
         const totalCount = dataGit.data.total_count;
         //hooks modifications
-        setRepos(datas)
+        //i load the precedent results with news results, to have the totality of the reserchs on one page
+        setRepos([
+          ...repos,
+          ...datas
+        ])
         console.log(dataGit)
-        setTotal(totalCount);// on met le resultat dans le state
-        setMessage(getMessage(totalCount));// CONFIGURER MESSAGE AVEC REULSTAT COUNT
+        setTotal(totalCount);
+        setMessage(getMessage(totalCount));
       }
       catch(err) {
-        /*A FAIRE*/
-          // on a eu une erreur sur la requete
-        setMessage(getErrorMessage({ // CONFIGURER MESSAGE AVEC RETOUR ERREUR
-        message: err.response.data.message, //CONSERVER ?
-        codeError: getErrorCode(err.response),
+        setMessage(getErrorMessageFetch({ 
+        message: err.response.data.message, 
+        codeError: err.response,
         }));
+         /*A FAIRE*/
         setHasError(true); // CONFIGURATION STYLE MESSAGE ERREUR -> ROUGE
       }
       finally {
@@ -77,12 +82,9 @@ function SearchRepos() {
       const parsedSearchValue = searchValue.trim();
       if (parsedSearchValue.length < 3) {
         setHasError(true); // A FAIRE
-        setMessage(getErrorMessage({//CONFIGURER MESSAGE AVEC RETOUR ERREUR
-          codeError: 'searchValueTooSmall',
-        }));
+        setMessage(getErrorMessageLength());
         return;
       }
-
       reset();
       //the searchValue is validated and saved at the search hook
       setSearch(parsedSearchValue);
@@ -101,9 +103,8 @@ function SearchRepos() {
       <SearchBar
         onSubmit={handleSearchSubmit}
       />
-      {/* uniquement de l'hydratation de composant à partir d'ici, mes deux premiers hooks distribuent leurs data sur ces deux composants */}
-      <Message result={message} />
-      <CardList datas={repos} /> {/*A FAIRE LE LIEN AVEC MORERESULT VOIR CORRECTION*/}
+      <Message resultMessage={message} />
+      <CardList datas={repos} />
 
       { total !== repos.length && (
          <MoreResults
@@ -112,8 +113,6 @@ function SearchRepos() {
          }}
          />
       ) }
-
-
     </div>
   );
 }

@@ -1,9 +1,11 @@
+import { getAppBarUtilityClass } from "@mui/material";
+
 export const initialMessage = 'Veuillez saisir une recherche';
 export const loadingMessage = 'La recherche est en cours';
 
 export const getMessage = (total) => {
   if (total === 0) {
-    return 'La recherche n\'a rien donné';
+    return 'La recherche n\'a rien donné, veuillez écrire autre chose';
   }
 
   return `La recherche a donné ${total} résultat${total > 1 ? 's' : ''}`;
@@ -25,19 +27,15 @@ export const getErrorCode = (responseError) => {
 /**
  * Permet de récuperer un message d'erreur
  * @param {Object} param
- * @param {String} [param.message] Le message d'erreur à afficher par defaut
- * @param {String} [param.codeError] Un code erreur pour avoir un message d'erreur particulier
+ * @param {String} [param.message] Le message d'erreur de la requête
+ * @param {String} [param.codeError] Le code d'erreur de la requête
  * @returns {String} le message d'erreur en francais
  */
-export const getErrorMessage = ({ message = '', codeError = null }) => {
-  try {
-    if (codeError === 'searchValueTooSmall') {
-      return 'La recherche a besoin de 3 caractères minimum';
-    }
-  }
-  catch (err) {
-    // on a mis un try catch au cas où notre if plante, si il y a une erreur, on fait le return si dessous
-  }
-
-  return `Une erreur est survenue: ${message}`;
+export const getErrorMessageLength = () => {
+    return 'La recherche a besoin de 3 caractères minimum';
 };
+
+export const getErrorMessageFetch = (message, codeError) => {
+  console.log(message,codeError)
+  return "Veuillez nous exscuser mais nous rencontrons un problème avec l'appli veuillez renouvelez votre recherche plus tard"
+}

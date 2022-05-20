@@ -17,6 +17,7 @@ function CardList({
           repoLogo={data.owner.avatar_url}
           titleRepo={data.name}
           subtitleRepo={data.owner.login}
+          link={data.clone_url}
           descriptionRepo={data.description}
         />
       ))}
