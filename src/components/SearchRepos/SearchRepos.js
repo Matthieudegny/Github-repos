@@ -1,8 +1,5 @@
 // == Import
 import React, { useState, useEffect } from 'react';
-import {
-  getMessage, getErrorMessageLength,getErrorMessageFetch, initialMessage, loadingMessage,
-} from '../../utils/messages';
 import SearchBar from '../SearchBar/SearchBar';
 import Message from '../Message/Message';
 import CardList from '../CardList/CardList';
@@ -10,6 +7,7 @@ import MoreResults from '../MoreResults/MoreResults';
 
 // Import request 
 import { requestsGithub } from '../../requests/request';
+import MultiCard from '../Card/Card';
 
 function SearchRepos() {
 
@@ -19,13 +17,12 @@ function SearchRepos() {
   //search -> result of 
   const [search, setSearch] = useState('');
   const [page, setPage] = useState(1);
-   //message a paramétrer en focntion de pls scénarios
-   const [message, setMessage] = useState(initialMessage);
 
+  const [hasError, setHasError] = useState('');
   /*A FAIRE */
   //à utiliser en fonction de materialize UI pour dynamiser 
   //pour dynamiser le message enc as d'erreur ex semantic = negative={isError} fichier Message.js correction
-  const [hasError, setHasError] = useState('');
+  
   //permet de dynamiser le repoResult avec un effet de skeleton (attente sur les cartes)
   // mise en condition du return ds card.group grace à semantic
   const [isLoading, setIsLoading] = useState(false);
@@ -39,10 +36,8 @@ function SearchRepos() {
   };
 
   const fetchResults = async () => {
-    // paramétrer message style
-    setMessage(loadingMessage);
-    /*A FAIRE*/
     setHasError(''); 
+    /*A FAIRE*/
     //paramètre card style
     setIsLoading(true);
     
@@ -56,21 +51,14 @@ function SearchRepos() {
         setRepos([
           ...repos,
           ...datas
-        ])
-        console.log(dataGit)
-        
+        ])        
         setTotal(totalCount);
-        if(totalCount === 0) setHasError("warningResultZero"); // A FAIRE
-        // setMessage(getMessage(totalCount));
+        if(totalCount === 0) setHasError("warningResultZero"); 
         else{setHasError("success")}
       }
       catch(err) {
-        setMessage(getErrorMessageFetch({ 
-        message: err.response.data.message, 
-        codeError: err.response,
-        }));
-         /*A FAIRE*/
-        setHasError('error'); // CONFIGURATION STYLE MESSAGE ERREUR -> ROUGE
+        console.log(err.response.data.message)
+        setHasError('error'); 
       }
       finally {
         /*A FAIRE ANIMATION LOADINF CARD/REPO RESULT*/
@@ -84,8 +72,7 @@ function SearchRepos() {
       //searchValue is cleaned
       const parsedSearchValue = searchValue.trim();
       if (parsedSearchValue.length < 3) {
-        setHasError("warningLength"); // A FAIRE
-        setMessage(getErrorMessageLength());
+        setHasError("warningLength");
         return;
       }
       reset();
@@ -103,15 +90,21 @@ function SearchRepos() {
 
   return (
     <div className="app">
+
       <SearchBar
         onSubmit={handleSearchSubmit}
       />
+
       <Message 
-      resultMessage={message}
-      stateRequest={hasError} 
-      totalRequest={total}
+        stateRequest={hasError} 
+        totalRequest={total}
+        loading={isLoading}
       />
-      <CardList datas={repos} />
+
+      <CardList 
+        datas={repos}
+        loading={isLoading}
+      />
 
       { total !== repos.length && (
          <MoreResults

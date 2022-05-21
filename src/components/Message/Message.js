@@ -1,12 +1,14 @@
 import propTypes from 'prop-types';
 import Alert from '@mui/material/Alert';
 import Stack from '@mui/material/Stack';
+import CircularProgress from '@mui/material/CircularProgress';
+import Box from '@mui/material/Box';
 
 // hydratation de composant classique ici avec la props result qui représente le nbre de recheches
 function Message({
-  resultMessage,
   stateRequest,
   totalRequest,
+  loading
 }) {
   let test = "success"
   let messageAlert = ""
@@ -22,18 +24,19 @@ function Message({
   }
   if(stateRequest==="info") messageAlert="Bienevnu ds la recherce de repos "
   return (
-    <div id="message">{resultMessage}
-        <Stack sx={{ width: '90%' }} spacing={2}>
-      
-    
-          {/* <Alert severity="error">This is an error alert — check it out!</Alert>
-          <Alert severity="warning">This is a warning alert — check it out!</Alert>
-          <Alert severity="info">This is an info alert — check it out!</Alert> */}
-          <Alert severity={stateRequest}>{messageAlert}</Alert> 
-         
-          
-        </Stack>
-    </div>
+    <>
+      {loading ? (
+        <Box sx={{ display: 'flex',justifyContent:"center", alignItems:"center", marginBottom:"3%"}}>
+          <CircularProgress />
+        </Box>
+      ) : (
+        <Stack sx={{ width: '100%', display:"flex", justifyContent:"center", alignItems:"center", marginBottom:"3%"}} spacing={2}>
+        <Alert severity={stateRequest}>
+          {messageAlert}
+        </Alert>           
+      </Stack>
+      )}
+    </>
   );
 }
 

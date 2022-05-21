@@ -7,32 +7,14 @@ import Typography from '@mui/material/Typography';
 import { Button, CardActionArea, CardActions } from '@mui/material';
 import './card.scss';
 
-// function Card({
-//   // je passe en props tous les éléments qui vont recevoir une valeur ds leur composant parent CartList
-//   repoLogo,
-//   titleRepo,
-//   subtitleRepo,
-//   link,
-//   descriptionRepo,
-// }) {
-//   let elementLink = <a href={link} target="_blank">{link}</a>
-//   return (
-//     <div className="container-repo">
-//       {/* je prépare mon composant Cart */}
-//       <img id="repo-img" src={repoLogo} alt="repo logo" />
-//       <h1>{titleRepo}</h1>
-//       <h2>{subtitleRepo}</h2>
-//       <p>{elementLink}</p>
-//       <p className="descriptionRepo">{descriptionRepo}</p>
-//     </div>
-//   );
-// }
+
 function MultiCard({
   repoLogo,
-   titleRepo,
-   subtitleRepo,
-   link,
-   descriptionRepo,
+  titleRepo,
+  subtitleRepo,
+  link,
+  descriptionRepo,
+   
 }) {
   return (
     <Card id="card">
