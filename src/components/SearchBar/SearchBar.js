@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
-
+import Box from '@mui/material/Box';
+import TextField from '@mui/material/TextField';
+import './searchBar.scss'
 
 function SearchBar({
   onSubmit,
@@ -23,9 +25,16 @@ function SearchBar({
 
   return (
     <div id="container-seaarchBar">
-        <form action="" onSubmit={handleSubmit}>
-            <input id="searchBar" type="text" placeholder="react" onChange={handleSearchChange} value={searchValue}/>
+        <form onSubmit={handleSubmit}>
+            {/* <input id="searchBar" type="text" placeholder="react" onChange={handleSearchChange} value={searchValue}/> */}
+          <Box
+            id="box-searchBar"
+            noValidate
+            autoComplete="off"
+            >
+            <TextField id="outlined-basic" onChange={handleSearchChange} onSubmit={handleSubmit} value={searchValue} label="Write a repo's name here" variant="outlined" />
             <input type="submit" value="Search"/>
+          </Box>
         </form>
     </div>
   );

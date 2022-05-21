@@ -10,6 +10,8 @@ import BottomNavigationAction from '@mui/material/BottomNavigationAction';
 // import FavoriteIcon from '@mui/icons-material/Favorite';
 // import LocationOnIcon from '@mui/icons-material/LocationOn';
 import { Link } from 'react-router-dom';
+import { GitHub, HelpCircle, Search } from 'react-feather';
+
 
 
 function Header() {
@@ -20,11 +22,7 @@ function Header() {
             <img class="logo" src={logoGitHub} alt="" /> 
             <img class="logo" src={logoGitHub2} alt="" />
           </div>
-          <div>
-              <a href="/">Recherche</a>
-              <a href="/faq">FAQ</a>
-          </div>
-          <Box sx={{ width: 500 }}>
+          <Box id="header-box">
             <BottomNavigation
               showLabels
               value={value}
@@ -32,13 +30,11 @@ function Header() {
                 setValue(newValue);
               }}
             >
-              <BottomNavigationAction component={Link} to="/" label="Favorites"  />
-              <BottomNavigationAction component={Link} to="/faq" label="Recents"  />
-              <BottomNavigationAction component={Link} to="/about" label="Nearby"  />
+              <BottomNavigationAction sx={{color: 'red', fontSize:50}} component={Link} to="/"  label="Reserach repos" icon={<Search size={50}/>}/>
+              <BottomNavigationAction component={Link} to="/faq" label="Github" icon={<GitHub size={50}/>} />
+              <BottomNavigationAction component={Link} to="/faq" label="FAQ" icon={<HelpCircle size={50}/>} />
             </BottomNavigation>
-          </Box>
-     
-   
+          </Box>   
       </header>
     );
   }
