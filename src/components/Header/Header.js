@@ -30,7 +30,7 @@ function Header() {
                 setValue(newValue);
               }}
             >
-              <BottomNavigationAction sx={{color: 'red', fontSize:50}} component={Link} to="/"  label="Reserach repos" icon={<Search size={50}/>}/>
+              <BottomNavigationAction component={Link} to="/"  label="Reserach repos" icon={<Search size={50}/>}/>
               <BottomNavigationAction component={Link} to="/faq" label="Github" icon={<GitHub size={50}/>} />
               <BottomNavigationAction component={Link} to="/faq" label="FAQ" icon={<HelpCircle size={50}/>} />
             </BottomNavigation>

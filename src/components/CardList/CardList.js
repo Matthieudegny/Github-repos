@@ -14,7 +14,7 @@ function CardList({
       { /* je boucle ici mon tableau de data(requête) stocké ds datas, et je distribue les valeurs provenant de la requête à mon composant
       Card que j'ai directement importé ici ds CardList */}
       {datas.map((data) => (
-        <Grid item xs={12} sm={6} md={4} container spacing={2}>
+        <Grid item xs={12} sm={6} md={4} container spacing={2} >
           <MultiCard
             key={data.id}
             repoLogo={data.owner.avatar_url}
