@@ -5,6 +5,7 @@ import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import Typography from '@mui/material/Typography';
 import { Button, CardActionArea, CardActions } from '@mui/material';
+import './card.scss';
 
 // function Card({
 //   // je passe en props tous les éléments qui vont recevoir une valeur ds leur composant parent CartList
@@ -34,14 +35,12 @@ function MultiCard({
    descriptionRepo,
 }) {
   return (
-    <Card sx={{ maxWidth: 300 }}>
+    <Card id="card">
       <CardActionArea>
         <CardMedia
+          id="card-picture"
           component="img"
-          height="140"
-          // image="/static/images/cards/contemplative-reptile.jpg"
           image={repoLogo}
-          // alt="green iguana"
           alt={repoLogo}
         />
         <CardContent>
@@ -54,7 +53,7 @@ function MultiCard({
         </CardContent>
       </CardActionArea>
       <CardActions>
-        <Button size="small" color="primary">
+        <Button variant="outlined" href={link} target="_blank">
           Link Repo
         </Button>
       </CardActions>

@@ -1,3 +1,4 @@
+import React from 'react';
 import { Routes, Route, Navigate } from 'react-router-dom';
 import Header from '../Header/Header';
 import SearchRepos from '../SearchRepos/SearchRepos';
@@ -25,4 +26,4 @@ function App() {
   }
   
   // == Export
-  export default App;
+  export default React.memo(App);

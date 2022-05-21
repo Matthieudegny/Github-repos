@@ -1,7 +1,7 @@
 // == Import
 import React, { useState, useEffect } from 'react';
 import {
-  getMessage, getErrorMessageLength,getErrorMessageFetch, initialMessage, loadingMessage, getErrorCode,
+  getMessage, getErrorMessageLength,getErrorMessageFetch, initialMessage, loadingMessage,
 } from '../../utils/messages';
 import SearchBar from '../SearchBar/SearchBar';
 import Message from '../Message/Message';

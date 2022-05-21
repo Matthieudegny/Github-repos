@@ -1,6 +1,7 @@
 import propTypes from 'prop-types';
 import MultiCard from '../Card/Card';
 import Grid from '@mui/material/Grid';
+import './cardsList.scss';
 
 // hydratation de composant classique ici avec la props datas qui représente le résultat de la requête axios (avec affinement data.items)
 function CardList({
@@ -9,11 +10,11 @@ function CardList({
   datas,
 }) {
   return (
-    <Grid container spacing={4}>
+    <Grid id="grid" container spacing={4}>
       { /* je boucle ici mon tableau de data(requête) stocké ds datas, et je distribue les valeurs provenant de la requête à mon composant
       Card que j'ai directement importé ici ds CardList */}
       {datas.map((data) => (
-        <Grid item xs={12} sm={6} md={4}>
+        <Grid item xs={12} sm={6} md={4} container spacing={2}>
           <MultiCard
             key={data.id}
             repoLogo={data.owner.avatar_url}
