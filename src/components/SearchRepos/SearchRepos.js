@@ -7,7 +7,6 @@ import MoreResults from '../MoreResults/MoreResults';
 
 // Import request 
 import { requestsGithub } from '../../requests/request';
-import MultiCard from '../Card/Card';
 
 function SearchRepos() {
 

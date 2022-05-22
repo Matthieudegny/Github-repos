@@ -8,10 +8,9 @@ import { Button, CardActionArea, CardActions } from '@mui/material';
 import './card.scss';
 
 
-function MultiCard({
+function CardRepo({
   repoLogo,
   titleRepo,
-  subtitleRepo,
   link,
   descriptionRepo,
    
@@ -46,8 +45,8 @@ function MultiCard({
 Card.prototype = {
   titleRepo: propTypes.string.isRequired,
   repoLogo: propTypes.string.isRequired,
-  subtitleRepo: propTypes.string.isRequired,
   descriptionRepo: propTypes.string.isRequired,
+  link: propTypes.string.isRequired
 };
 
-export default MultiCard;
+export default CardRepo;

@@ -1,5 +1,6 @@
+import React, { useState, useEffect} from 'react';
 import propTypes from 'prop-types';
-import MultiCard from '../Card/Card';
+import CardRepo from '../CardRepo/CardRepo';
 import Grid from '@mui/material/Grid';
 import Skeleton from '@mui/material/Skeleton';
 import './cardsList.scss';
@@ -9,13 +10,32 @@ function CardList({
   loading,
 }) {
 
+  if(loading===true)console.log("foutu true")
+  else{console.log("foutre false")}
   return (
     
-    <Grid id="grid" container spacing={4}>
-    
-      {datas.map((data) => (
+  <Grid id="grid" container spacing={4}>
+
+    {loading ? (
+
+      [...Array(15)].map((_, index) => (
+
         <Grid item xs={12} sm={6} md={4} container spacing={2} >
-          {/* <MultiCard
+
+          <Skeleton variant="rectangular" sx={{height:"400px", width:"100%"}} key={index}/>
+
+        </Grid>
+
+      ))
+
+    ) : (
+
+      <>
+      {datas.map((data) => (
+
+        <Grid item xs={12} sm={6} md={4} container spacing={2} >
+         
+          <CardRepo
             loading={loading}
             key={data.id}
             repoLogo={data.owner.avatar_url}
@@ -23,12 +43,16 @@ function CardList({
             subtitleRepo={data.owner.login}
             link={data.clone_url}
             descriptionRepo={data.description}
-          /> */}
-          <Skeleton animation="wave" variant="circular" width={40} height={40} />
+            /> 
+      
         </Grid>
-      ))}
 
-    </Grid>
+      ))}
+      </>
+
+    )}
+    
+  </Grid>
   );
 }
 
@@ -36,6 +60,7 @@ CardList.prototype = {
   datas: propTypes.arrayOf(propTypes.shape({
     id: propTypes.number.isRequired,
   }).isRequired).isRequired,
+  loading: propTypes.bool.isRequired,
 };
 
 CardList.defaultProps = {
