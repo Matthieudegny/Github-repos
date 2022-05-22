@@ -10,7 +10,7 @@ function MoreResults({
   }) {
 
   const backToTheTop= () => {
-    document.getElementById("container-logos").scrollIntoView({behavior:"smooth", block:"start"})
+    document.querySelector("header").scrollIntoView({behavior:"smooth", block:"start"})
   }
 
   return (

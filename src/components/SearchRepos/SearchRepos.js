@@ -61,11 +61,19 @@ function SearchRepos() {
       setSearch(parsedSearchValue);
   };
 
-  /*A FAIRE NETOYAGE*/
   useEffect(() => {
-    if (search !== '') {
+
+    let isCancelled = false;
+
+    if (search !== '' && !isCancelled) {
       fetchResults();
-    }
+    };
+
+    //clean up
+      return () => {
+        isCancelled = true;
+      }
+
   }, [search,page]);
 
   return (

@@ -15,6 +15,9 @@ function CardRepo({
   descriptionRepo,
    
 }) {
+
+  console.log()
+
   return (
 
     <Card className='card'>
@@ -22,7 +25,7 @@ function CardRepo({
       <CardActionArea>
 
         <CardMedia
-          id="card-picture"
+          
           component="img"
           image={repoLogo}
           alt={repoLogo}

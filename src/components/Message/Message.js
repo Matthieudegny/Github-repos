@@ -37,11 +37,12 @@ function Message({
 
       ) : (
 
-        <Stack sx={{ width: '100%', display:"flex", justifyContent:"center", alignItems:"center", marginBottom:"3%", marginLeft:"0.5%"}}>
+        <Stack sx={{ width: '100%', display:"flex", justifyContent:"center", alignItems:"center", marginBottom:"3%"}}>
 
           {(stateRequest==='info') ? (
-
-            <Alert severity="info" icon={false}>The application is ready to make some research for you</Alert>  
+         
+              <>
+              </>
 
           ) : (
 

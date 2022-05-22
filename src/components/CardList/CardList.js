@@ -11,6 +11,7 @@ function CardList({
   loading,
 
 }) {
+  
   return (
     
   <Grid id="grid" container spacing={4}>
@@ -19,9 +20,9 @@ function CardList({
 
       [...Array(15)].map((_, index) => (
 
-        <Grid item xs={12} sm={6} md={4} container spacing={2} >
+        <Grid key={index+1} item xs={12} sm={6} md={4} container spacing={2} >
 
-          <Skeleton variant="rectangular" sx={{height:"400px", width:"100%"}} key={index}/>
+          <Skeleton variant="rectangular" sx={{height:"400px", width:"100%"}} />
 
         </Grid>
 
@@ -31,20 +32,20 @@ function CardList({
 
       <>
       {datas.map((data) => (
-
+       
         <Grid item xs={12} sm={6} md={4} container spacing={2} >
          
           <CardRepo
-
-            loading={loading}
+          
             key={data.id}
+            loading={loading}
             repoLogo={data.owner.avatar_url}
             titleRepo={data.name}
             subtitleRepo={data.owner.login}
             link={data.clone_url}
             descriptionRepo={data.description}
-
-            /> 
+         
+          /> 
       
         </Grid>
 
