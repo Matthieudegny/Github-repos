@@ -4,7 +4,9 @@ import Stack from '@mui/material/Stack';
 import Button from '@mui/material/Button';
 
 function MoreResults({ 
+
   fetchMore, 
+
   }) {
 
   const backToTheTop= () => {
@@ -12,6 +14,7 @@ function MoreResults({
   }
 
   return (
+
       <Stack spacing={2} 
       direction="row" 
       justifyContent="center"
@@ -27,6 +30,5 @@ function MoreResults({
 MoreResults.propTypes = {
   fetchMore: PropTypes.func.isRequired,
 };
-MoreResults.defaultProps = {
-};
+
 export default React.memo(MoreResults);

@@ -1,4 +1,4 @@
-import React, { useState, useEffect} from 'react';
+
 import propTypes from 'prop-types';
 import CardRepo from '../CardRepo/CardRepo';
 import Grid from '@mui/material/Grid';
@@ -6,12 +6,11 @@ import Skeleton from '@mui/material/Skeleton';
 import './cardsList.scss';
 
 function CardList({
+
   datas,
   loading,
-}) {
 
-  if(loading===true)console.log("foutu true")
-  else{console.log("foutre false")}
+}) {
   return (
     
   <Grid id="grid" container spacing={4}>
@@ -36,6 +35,7 @@ function CardList({
         <Grid item xs={12} sm={6} md={4} container spacing={2} >
          
           <CardRepo
+
             loading={loading}
             key={data.id}
             repoLogo={data.owner.avatar_url}
@@ -43,6 +43,7 @@ function CardList({
             subtitleRepo={data.owner.login}
             link={data.clone_url}
             descriptionRepo={data.description}
+
             /> 
       
         </Grid>
@@ -63,8 +64,6 @@ CardList.prototype = {
   loading: propTypes.bool.isRequired,
 };
 
-CardList.defaultProps = {
-  datas: [],
-};
+
 
 export default CardList;

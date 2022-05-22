@@ -3,6 +3,7 @@ import { Routes, Route, Navigate } from 'react-router-dom';
 import Header from '../Header/Header';
 import SearchRepos from '../SearchRepos/SearchRepos';
 import Faq from '../Faq/Faq';
+import Github from '../Github/Github';
 
 // == Composant
 function App() {
@@ -18,7 +19,11 @@ function App() {
             path="/faq"
             element={(<Faq />)}
           />
-          {/* La route pour le 404 ("*"), qui redirige (Navigate) l'utilisateur vers la route "/" */}
+          <Route
+            path="/github"
+            element={(<Github />)}
+          />
+          {/* 404 page */}
           <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>
       </div>

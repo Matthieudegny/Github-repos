@@ -16,14 +16,18 @@ function CardRepo({
    
 }) {
   return (
-    <Card id="card">
+
+    <Card className='card'>
+
       <CardActionArea>
+
         <CardMedia
           id="card-picture"
           component="img"
           image={repoLogo}
           alt={repoLogo}
         />
+
         <CardContent>
           <Typography gutterBottom variant="h5" component="div">
           {titleRepo}
@@ -32,13 +36,19 @@ function CardRepo({
           {descriptionRepo}
           </Typography>
         </CardContent>
+
       </CardActionArea>
+
       <CardActions>
+
         <Button variant="outlined" href={link} target="_blank">
           Link Repo
         </Button>
+        
       </CardActions>
+
     </Card>
+
   );
 }
 

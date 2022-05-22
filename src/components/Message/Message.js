@@ -6,42 +6,62 @@ import Box from '@mui/material/Box';
 
 // hydratation de composant classique ici avec la props result qui représente le nbre de recheches
 function Message({
+
   stateRequest,
   totalRequest,
   loading
+
 }) {
-  let test = "success"
+
   let messageAlert = ""
-  if(stateRequest==="success") messageAlert=`Votre recherche a donné ${totalRequest} résultats`
-  if(stateRequest==="error") messageAlert="Problème avec fetch "
+  if(stateRequest==="success") messageAlert=`Your research match with ${totalRequest} repos`
+  if(stateRequest==="error") messageAlert="Sorry, we encounter a dysfunction with the application, please retry later "
   if(stateRequest==="warningLength") {
     stateRequest="warning" 
-    messageAlert="Veuillze rentrer au moins 3 lettres "
+    messageAlert="Please enter at least 3 letters "
   }
   if(stateRequest==="warningResultZero") {
     stateRequest="warning" 
-    messageAlert="aucun résultat pour votre recherche "
+    messageAlert="No result for your request, please try something else "
   }
-  if(stateRequest==="info") messageAlert="Bienevnu ds la recherce de repos "
+ 
   return (
+
     <>
+
       {loading ? (
+
         <Box sx={{ display: 'flex',justifyContent:"center", alignItems:"center", marginBottom:"3%"}}>
           <CircularProgress />
         </Box>
+
       ) : (
-        <Stack sx={{ width: '100%', display:"flex", justifyContent:"center", alignItems:"center", marginBottom:"3%"}} spacing={2}>
-        <Alert severity={stateRequest}>
-          {messageAlert}
-        </Alert>           
+
+        <Stack sx={{ width: '100%', display:"flex", justifyContent:"center", alignItems:"center", marginBottom:"3%", marginLeft:"0.5%"}}>
+
+          {(stateRequest==='info') ? (
+
+            <Alert severity="info" icon={false}>The application is ready to make some research for you</Alert>  
+
+          ) : (
+
+            <Alert severity={stateRequest}>
+              {messageAlert}
+            </Alert>     
+
+          )}
+                
       </Stack>
+
       )}
     </>
   );
 }
 
 Message.prototype = {
-  result: propTypes.number.isRequired,
+  totalRequest: propTypes.number.isRequired,
+  stateRequest: propTypes.string.isRequired,
+  loading: propTypes.bool.isRequired
 };
 
 export default Message;
