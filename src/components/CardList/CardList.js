@@ -3,7 +3,7 @@ import propTypes from 'prop-types';
 import CardRepo from '../CardRepo/CardRepo';
 import Grid from '@mui/material/Grid';
 import Skeleton from '@mui/material/Skeleton';
-import './cardsList.scss';
+
 
 function CardList({
 
@@ -14,7 +14,7 @@ function CardList({
   
   return (
     
-  <Grid id="grid" container spacing={4}>
+  <Grid container spacing={4}>
 
     {loading ? (
 
@@ -27,7 +27,7 @@ function CardList({
         </Grid>
 
       ))
-
+      
     ) : (
 
       <>
@@ -36,7 +36,6 @@ function CardList({
         <Grid item xs={12} sm={6} md={4} container spacing={2} >
          
           <CardRepo
-          
             key={data.id}
             loading={loading}
             repoLogo={data.owner.avatar_url}
@@ -44,11 +43,11 @@ function CardList({
             subtitleRepo={data.owner.login}
             link={data.clone_url}
             descriptionRepo={data.description}
-         
           /> 
-      
+          
+          {console.log(data.id)}
         </Grid>
-
+        
       ))}
       </>
 

@@ -4,6 +4,7 @@ import Header from '../Header/Header';
 import SearchRepos from '../SearchRepos/SearchRepos';
 import Faq from '../Faq/Faq';
 import Github from '../Github/Github';
+import './app.scss'
 
 // == Composant
 function App() {
