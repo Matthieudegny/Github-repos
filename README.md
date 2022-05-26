@@ -1,6 +1,6 @@
 # Github Repos
 
-Repositories search app
+:mag_right: Repositories search app
 
 <p align="center">
   <kbd>
