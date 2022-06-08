@@ -7,7 +7,7 @@ import './githubStyles.scss'
 function Github() {
   return (
  
-    <div className='box'>
+    <div className='github-box'>
 
         <strong>GitHub </strong> is a code hosting platform for version control and collaboration. 
 

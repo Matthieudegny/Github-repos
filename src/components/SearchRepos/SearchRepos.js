@@ -4,6 +4,7 @@ import SearchBar from '../SearchBar/SearchBar';
 import Message from '../Message/Message';
 import CardList from '../CardList/CardList';
 import MoreResults from '../MoreResults/MoreResults';
+import './searchRepos.scss'
 
 // Import request 
 import { requestsGithub } from '../../requests/request';
@@ -77,7 +78,7 @@ function SearchRepos() {
   }, [search,page]);
 
   return (
-    <div className="app">
+    <div className="searchRepos">
 
       <SearchBar
         onSubmit={handleSearchSubmit}

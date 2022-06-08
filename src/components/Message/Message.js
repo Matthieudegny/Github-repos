@@ -31,13 +31,13 @@ function Message({
 
       {loading ? (
 
-        <Box sx={{ display: 'flex',justifyContent:"center", alignItems:"center", marginBottom:"3%"}}>
+        <Box sx={{ display: 'flex',justifyContent:"center", alignItems:"center", margin:"1%"}}>
           <CircularProgress />
         </Box>
 
       ) : (
 
-        <Stack sx={{ width: '100%', display:"flex", justifyContent:"center", alignItems:"center", marginBottom:"3%"}}>
+        <Stack sx={{ width: '100%', display:"flex", justifyContent:"center", alignItems:"center", margin:"1% 0"}}>
 
           {(stateRequest==='info') ? (
          

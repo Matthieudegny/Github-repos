@@ -30,33 +30,39 @@ function SearchBar({
 
   return (
 
-    <div className="container-seaarchBar">
+    <div >
 
-        <form onSubmit={handleSubmit}>
+        <form 
+        className="container-seaarchBar"
+        onSubmit={handleSubmit}>
             
-          <Box
+          {/* <Box
             sx={{width:"100%"}}
             className="box-searchBar"
             noValidate
-            >
+            > */}
+            <div className="searchBar">
 
-            <Stack direction="row" spacing={2} sx={{display:"flex", justifyContent:"center",alignItems:"center", margin:"2%"}}>
+              <Stack>
 
-              <TextField 
-                onChange={handleSearchChange} 
-                onSubmit={handleSubmit} 
-                value={searchValue} 
-                label="Write a repo's name here" 
-                variant="outlined" 
-                onClick={resetValue}
-              />
-              <Button variant="contained" type="submit" endIcon={<Search size={30}/>} >
-                Search
-              </Button>
+                <TextField 
+                  className='searchBar-input'
+                  onChange={handleSearchChange} 
+                  onSubmit={handleSubmit} 
+                  value={searchValue} 
+                  label="Write a repo's category here" 
+                  variant="outlined" 
+                  onClick={resetValue}
+                />
 
-            </Stack>
+                <Button className='searchBar-button' sx ={{margin:"auto", marginTop:"3%"}} variant="contained" type="submit" endIcon={<Search size={30}/>} >
+                  Search
+                </Button>
 
-          </Box>
+              </Stack>
+
+            </div>
+          {/* </Box> */}
 
         </form>
     </div>

@@ -1,7 +1,32 @@
-.container-searchBar{
-    width: 100vw;
-}
 
-.box-searchBar{
-    width: 100vw;
+.searchBar{
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: auto;
+
+    &-input{
+        width: 30vw;
+        margin: auto;
+        margin-bottom: 3%;
+    }
+
+    &-button{
+        width: 15vw;
+        margin: 0 auto;
+       
+    }
+}
+@media screen and (max-width: 700px) {
+    .searchBar{
+        &-input{
+            width: 65vw;
+        }
+
+        &-button{
+            width: 30vw;
+        }
+    }
+
 }

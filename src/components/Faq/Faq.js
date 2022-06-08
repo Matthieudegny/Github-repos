@@ -5,7 +5,7 @@ import './faqStyles.scss'
 function Faq() {
   return (
  
-    <div className='box'>
+    <div className='faq-box'>
 
       <div className='titles'>What is the purpose of this application?</div>
       <p>Give you the possibility to find a list of github repos, in fonction of a topic of your choice.</p>
