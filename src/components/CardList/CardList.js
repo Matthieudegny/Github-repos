@@ -46,7 +46,6 @@ function CardList({
             descriptionRepo={data.description}
           /> 
           
-          {console.log(data.id)}
         </Grid>
         
       ))}

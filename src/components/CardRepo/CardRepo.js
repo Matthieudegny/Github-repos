@@ -16,8 +16,6 @@ function CardRepo({
    
 }) {
 
-  console.log()
-
   return (
 
     <Card className='card'>
