@@ -19,8 +19,8 @@ function Header() {
 
           <div className='container-logos'>
 
-            <img class="logo-title" src={logoGitHub} alt="" /> 
-            <img class="logo-image" src={logoGitHub2} alt="" />
+            <img className="logo-title" src={logoGitHub} alt="" /> 
+            <img className="logo-image" src={logoGitHub2} alt="" />
 
           </div>
 
